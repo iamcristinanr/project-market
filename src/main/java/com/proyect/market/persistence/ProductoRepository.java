@@ -1,25 +1,42 @@
 package com.proyect.market.persistence;
 
-import com.proyect.market.persistence.crud.ProductoCrudReporitory;
+import com.proyect.market.persistence.crud.ProductoCrudRepository;
 import com.proyect.market.persistence.entity.Producto;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ProductoRepository {
 
-    private ProductoCrudReporitory productoCrudReporitory;
+    private ProductoCrudRepository productoCrudRepository;
 
     public List<Producto> getAll() {
-        return (List<Producto>) productoCrudReporitory.findAll();
+        return (List<Producto>) productoCrudRepository.findAll();
     }
 
     public List<Producto> getByCategoria(int idCategoria) {
-        return productoCrudReporitory.findByIdCategoriaOrderByNombreAsc(idCategoria);
+        return productoCrudRepository.findByIdCategoriaOrderByNombreAsc(idCategoria);
     }
 
     public Optional<List<Producto>> getEscasos(int cantidad) {
-        return productoCrudReporitory.findByCantidadStockLessThanAndEstado(cantidad, true);
+        return productoCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, true);
 
     }
+
+    public Optional<Producto> getProducto (int idProducto){
+        return productoCrudRepository.findById(idProducto);
+
+    }
+
+    public Producto save(Producto producto){
+        return productoCrudRepository.save(producto);
+    }
+
+    public void delete(int idProducto){
+        productoCrudRepository.deleteById(idProducto);
+    }
+
+
 }
