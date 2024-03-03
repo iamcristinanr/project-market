@@ -11,6 +11,7 @@ public class Producto {
     @Column(name = "id_producto")
     private Integer idProducto;
 
+    //No cambia el nombre no anotacion @Column
     private String nombre;
 
     @Column(name = "id_categoria")
@@ -25,7 +26,16 @@ public class Producto {
     @Column (name = "cantidad_stock")
     private Integer cantidadStock;
 
+    //No cambia el nombre no anotacion @Column
     private Boolean estado;
+
+    //Varios productos pueden tener una categoria
+    //La columna para realacionar esto es id_categoria
+    //insertable, updatable in false. por esta anotacion no insertaremos ni actualizaremos categorias
+    //es una anotacion solo y exclusivamente para relacioanr
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
+    private Categoria categoria;
 
     public Integer getIdProducto() {
         return idProducto;
